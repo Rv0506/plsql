@@ -1,0 +1,15 @@
+create or replace procedure emp_proc(emp_id number,h_date varchar2)
+is  
+v_emp employees%rowtype;
+begin
+if emp_id is null then
+select * into v_emp from employees where to_char(hire_date,'DD-MM-YYYY')=h_date; 
+dbms_output.put_line(v_emp.first_name||' '||v_emp.last_name||' '||v_emp.hire_date);
+elsif h_date is null then
+select * into v_emp from employees where employee_id=emp_id; 
+dbms_output.put_line(v_emp.first_name||' '||v_emp.last_name||' '||v_emp.hire_date);
+else
+select * into v_emp from employees where employee_id=emp_id and to_char(hire_date,'DD-MM-YYYY')=h_date;
+dbms_output.put_line(v_emp.first_name||' '||v_emp.last_name||' '||v_emp.hire_date);
+end if;
+end emp_proc;
